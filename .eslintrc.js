@@ -18,8 +18,9 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
   plugins: ['react', 'prettier', 'module-resolver'],
+  ignorePatterns: ['**/*.d.ts'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/jsx-filename-extension': [
       'warn',
       {
