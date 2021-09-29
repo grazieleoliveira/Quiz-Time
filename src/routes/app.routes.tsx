@@ -14,6 +14,7 @@ export function AppRoutes() {
         cardStyle: {
           backgroundColor: themes.light.Colors.WHITE,
         },
+        headerShown: false,
       }}>
       <Stack.Screen
         name={HOME}
