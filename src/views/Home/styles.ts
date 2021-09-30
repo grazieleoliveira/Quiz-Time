@@ -36,3 +36,7 @@ export const ItemContainer = styled.View`
 export const Footer = styled.View`
   height: ${s(48)}px;
 `;
+
+export const ActivityContainer = styled.View`
+  padding-top: ${s(150)}px;
+`;
