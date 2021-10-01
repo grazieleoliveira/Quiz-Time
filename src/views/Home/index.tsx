@@ -3,7 +3,7 @@ import { ActivityIndicator, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '~/shared/store';
-import { getCategoriesAction } from '~/shared/store/ducks/categories/actions';
+import { getCategoriesAction } from '~/modules/Categories/store/ducks/actions';
 import * as S from './styles';
 
 const renderCategory = ({ item }: any) => (

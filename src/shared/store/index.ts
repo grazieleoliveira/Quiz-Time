@@ -9,7 +9,7 @@ import { reactotron } from '~/config/ReactotronConfig';
 import reducers from './ducks';
 import sagas from './sagas';
 
-import { CategoriesState } from '~/shared/store/ducks/categories/types';
+import { CategoriesState } from '~/modules/Categories/store/ducks/types';
 
 export interface ApplicationState {
   categories: CategoriesState;
