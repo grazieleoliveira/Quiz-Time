@@ -1,8 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack/';
-import { HOME } from '../shared/constants/routeNames';
+import { HOME, QUESTIONS } from '../shared/constants/routeNames';
 import themes from '../shared/themes';
-import { Home } from '../views/Home';
+import { Home } from '~/modules/Categories/view/';
+import { QuestionPage } from '~/modules/Questions/view';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,13 @@ export function AppRoutes() {
       <Stack.Screen
         name={HOME}
         component={Home}
+        // options={{
+        //   header: () => <Header />,
+        // }}
+      />
+      <Stack.Screen
+        name={QUESTIONS}
+        component={QuestionPage}
         // options={{
         //   header: () => <Header />,
         // }}
