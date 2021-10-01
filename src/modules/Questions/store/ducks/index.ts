@@ -20,7 +20,7 @@ const reducer: Reducer<QuestionsState> = (
       return {
         ...state,
         loading: false,
-        listQuestions: payload.listCategories,
+        listQuestions: payload.listQuestions,
       };
     case QuestionsTypes.GET_QUESTIONS_ERROR:
       return {
@@ -28,6 +28,8 @@ const reducer: Reducer<QuestionsState> = (
         loading: false,
         listQuestions: [],
       };
+    case QuestionsTypes.RESET_QUESTIONS:
+      return INITIAL_STATE;
     default:
       return state;
   }

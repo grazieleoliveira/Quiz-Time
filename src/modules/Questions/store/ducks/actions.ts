@@ -5,6 +5,7 @@ import {
   GetQuestionsProps,
   GetQuestionsSuccessProps,
   GetQuestionsErrorProps,
+  ResetQuestionsProps,
 } from './types';
 
 export const getQuestionsAction = (id: string): GetQuestionsProps =>
@@ -17,3 +18,6 @@ export const getQuestionsSuccessAction = (
 
 export const getQuestionsErrorAction = (): GetQuestionsErrorProps =>
   action(QuestionsTypes.GET_QUESTIONS_ERROR);
+
+export const resetQuestionsAction = (): ResetQuestionsProps =>
+  action(QuestionsTypes.RESET_QUESTIONS);
