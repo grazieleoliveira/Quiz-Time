@@ -2,6 +2,10 @@ import { Reducer } from 'redux';
 import { UserTypes, UserState } from './types';
 
 const INITIAL_STATE: UserState = {
+  currentAnswer: {
+    id: 0,
+    answer: '',
+  },
   streak: {
     wrongAnswers: 0,
     rightAnswers: 0,
@@ -88,6 +92,16 @@ const reducer: Reducer<UserState> = (
           ...state.hard,
           wrongAnswers: payload.wrongAnswers,
         },
+      };
+    case UserTypes.SAVE_USER_ANSWER:
+      return {
+        ...state,
+        answer: payload.answer,
+      };
+    case UserTypes.RESET_ANSWER:
+      return {
+        ...state,
+        currentAnswer: INITIAL_STATE.currentAnswer,
       };
     case UserTypes.RESET_INFO:
       return INITIAL_STATE;

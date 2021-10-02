@@ -9,6 +9,9 @@ import {
   IncreaseMediumWrongQuestionsProps,
   IncreaseRightQuestionsStreakProps,
   UserTypes,
+  SaveUserAnswerProps,
+  ResetInfoProps,
+  ResetAnswerProps,
 } from './types';
 
 export const incrementWrongStreak = (
@@ -50,3 +53,12 @@ export const incrementWrongHardStreak = (
   wrongAnswers: number,
 ): IncreaseHardWrongQuestionsProps =>
   action(UserTypes.HARD_WRONG_QUESTIONS, { wrongAnswers });
+
+export const saveUserAnswerAction = (answer: string): SaveUserAnswerProps =>
+  action(UserTypes.SAVE_USER_ANSWER, { answer });
+
+export const resetInfoAction = (): ResetInfoProps =>
+  action(UserTypes.RESET_INFO);
+
+export const resetAnswerAction = (): ResetAnswerProps =>
+  action(UserTypes.RESET_ANSWER);

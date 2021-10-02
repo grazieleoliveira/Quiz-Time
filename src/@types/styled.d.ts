@@ -42,6 +42,7 @@ type ColorsProps = {
   TEXT_CLICKABLE: string;
   BUTTON_CANCEL: string;
   SHOW_BUTTON: string;
+  BUTTON_COLOR: string;
 };
 
 type SizingProps = {

@@ -9,6 +9,8 @@ export enum UserTypes {
   MEDIUM_WRONG_QUESTIONS = '@user/MEDIUM_WRONG_QUESTIONS_STREAK',
   HARD_RIGHT_QUESTIONS = '@user/HARD_RIGHT_QUESTIONS_STREAK',
   HARD_WRONG_QUESTIONS = '@user/HARD_WRONG_QUESTIONS_STREAK',
+  SAVE_USER_ANSWER = '@user/SAVE_USER_ANSWER',
+  RESET_ANSWER = '@user/RESET_ANSWER',
   RESET_INFO = '@user/RESET_INFO',
 }
 
@@ -18,6 +20,10 @@ interface AnswersProps {
 }
 
 export interface UserState {
+  currentAnswer: {
+    id: number | undefined;
+    answer: string;
+  };
   streak: AnswersProps;
   easy: AnswersProps;
   medium: AnswersProps;
@@ -66,4 +72,13 @@ export interface IncreaseHardWrongQuestionsProps extends Action {
 
 export interface ResetInfoProps extends Action {
   type: UserTypes.RESET_INFO;
+}
+
+export interface ResetAnswerProps extends Action {
+  type: UserTypes.RESET_ANSWER;
+}
+
+export interface SaveUserAnswerProps extends Action {
+  type: UserTypes.SAVE_USER_ANSWER;
+  payload: { answer: string };
 }

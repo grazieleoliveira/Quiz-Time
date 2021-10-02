@@ -13,7 +13,7 @@ export interface QuestionProps {
   difficulty: string;
   question: string;
   correct_answer: string;
-  incorrect_answers: Array<string>;
+  incorrect_answers: string[] | string;
 }
 
 export interface QuestionsProps {

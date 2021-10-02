@@ -55,5 +55,6 @@ export default {
     TEXT_CLICKABLE: '#FFFF00',
     BUTTON_CANCEL: '#FFFF00',
     SHOW_BUTTON: '#FFFF00',
+    BUTTON_COLOR: '#f57b5d',
   },
 };
