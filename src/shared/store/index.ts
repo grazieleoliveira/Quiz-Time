@@ -11,10 +11,12 @@ import sagas from './sagas';
 
 import { CategoriesState } from '~/modules/Categories/store/ducks/types';
 import { QuestionsState } from '~/modules/Questions/store/ducks/types';
+import { UserState } from './ducks/user/types';
 
 export interface ApplicationState {
   categories: CategoriesState;
   questions: QuestionsState;
+  user: UserState;
 }
 
 export const persistConfig = {

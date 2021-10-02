@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, Alert, BackHandler, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { decode } from 'html-entities';
 import { useNavigation } from '@react-navigation/core';
@@ -22,12 +22,15 @@ export const QuestionPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const resetQuestions = () => {
-    dispatch(resetQuestionsAction());
     navigation.navigate(HOME);
+    dispatch(resetQuestionsAction());
   };
 
   const nextQuestion = () => {
-    if (questionCount < 9) {
+    if (questionCount === 9) {
+      setQuestionCount(0);
+      navigation.navigate(HOME);
+    } else {
       setQuestionCount(questionCount + 1);
     }
   };
@@ -37,7 +40,7 @@ export const QuestionPage: React.FC = () => {
       setQuestion(listQuestions[questionCount]);
       setQuestionTitle(decode(question?.question));
     }
-  }, [listQuestions, questionCount, question]);
+  }, [listQuestions, questionCount, question, navigation]);
 
   return (
     <S.Background>
@@ -62,7 +65,7 @@ export const QuestionPage: React.FC = () => {
           onPress={() => nextQuestion()}
           style={{ backgroundColor: '#00b100' }}
           activeOpacity={0.7}>
-          <S.ActionText>Next</S.ActionText>
+          <S.ActionText>{questionCount === 9 ? 'Finish' : 'Next'}</S.ActionText>
         </S.Touchable>
       </S.ActionsContainer>
     </S.Background>

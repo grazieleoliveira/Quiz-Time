@@ -8,11 +8,15 @@ import * as S from './styles';
 import { CategoryProps } from '~/dtos';
 import { getQuestionsAction } from '~/modules/Questions/store/ducks/actions';
 import { QUESTIONS } from '~/shared/constants/routeNames';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { incrementWrongStreak } from '~/shared/store/ducks/user/actions';
 
 export const Home: React.FC = () => {
   const { listCategories, loading } = useSelector(
     (state: ApplicationState) => state.categories,
   );
+
+  const { streak, easy } = useSelector((state: ApplicationState) => state.user);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -27,6 +31,7 @@ export const Home: React.FC = () => {
     dispatch(getCategoriesAction());
   }, [dispatch]);
 
+  console.tron.log('EASY', easy);
   const renderCategory = ({ item }: any) => (
     <S.ItemContainer
       onPress={() => getQuestions(item)}
@@ -43,7 +48,12 @@ export const Home: React.FC = () => {
   return (
     <S.Background>
       <S.Container>
-        <S.Title>Quiz Time</S.Title>
+        <TouchableOpacity
+          onPress={() =>
+            dispatch(incrementWrongStreak(streak.wrongAnswers + 1))
+          }>
+          <S.Title>Quiz Time</S.Title>
+        </TouchableOpacity>
 
         <S.SelectCategoryText>
           Para iniciar o quiz, selecione uma categoria:
