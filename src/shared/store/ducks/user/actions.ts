@@ -12,6 +12,7 @@ import {
   SaveUserAnswerProps,
   ResetInfoProps,
   ResetAnswerProps,
+  PreviousResultProps,
 } from './types';
 
 export const incrementWrongStreak = (
@@ -56,6 +57,11 @@ export const incrementWrongHardStreak = (
 
 export const saveUserAnswerAction = (answer: string): SaveUserAnswerProps =>
   action(UserTypes.SAVE_USER_ANSWER, { answer });
+
+export const savePreviousAnswer = (
+  previousAnswerResult: boolean,
+): PreviousResultProps =>
+  action(UserTypes.PREVIOUS_RESULT, { previousAnswerResult });
 
 export const resetInfoAction = (): ResetInfoProps =>
   action(UserTypes.RESET_INFO);

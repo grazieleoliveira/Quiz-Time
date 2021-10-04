@@ -18,6 +18,7 @@ function* getQuestionsSagas(action: GetQuestionsProps) {
     const response: ResponseGenerator = yield call(
       getQuestions,
       action.payload.id,
+      action.payload.difficulty,
     );
 
     if (response.status >= 200 && response.status < 300) {

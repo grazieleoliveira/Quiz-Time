@@ -8,8 +8,11 @@ import {
   ResetQuestionsProps,
 } from './types';
 
-export const getQuestionsAction = (id: string): GetQuestionsProps =>
-  action(QuestionsTypes.GET_QUESTIONS, { id });
+export const getQuestionsAction = (
+  id: string,
+  difficulty: string,
+): GetQuestionsProps =>
+  action(QuestionsTypes.GET_QUESTIONS, { id, difficulty });
 
 export const getQuestionsSuccessAction = (
   listQuestions: QuestionsProps,

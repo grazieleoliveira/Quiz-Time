@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ApplicationState } from '~/shared/store';
-import { getCategoriesAction } from '~/modules/Categories/store/ducks/actions';
+import {
+  getCategoriesAction,
+  setCurrentCategoryIdAction,
+} from '~/modules/Categories/store/ducks/actions';
 import * as S from './styles';
 import { CategoryProps } from '~/dtos';
 import { getQuestionsAction } from '~/modules/Questions/store/ducks/actions';
 import { QUESTIONS } from '~/shared/constants/routeNames';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { incrementWrongStreak } from '~/shared/store/ducks/user/actions';
 
 export const Home: React.FC = () => {
@@ -22,7 +25,8 @@ export const Home: React.FC = () => {
   const navigation = useNavigation();
   const getQuestions = (category: CategoryProps) => {
     if (!loading) {
-      dispatch(getQuestionsAction(category.id.toString()));
+      dispatch(getQuestionsAction(category.id.toString(), 'easy'));
+      dispatch(setCurrentCategoryIdAction(category.id.toString()));
       navigation.navigate(QUESTIONS);
     }
   };

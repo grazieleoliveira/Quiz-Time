@@ -15,7 +15,7 @@ export interface QuestionsState {
 
 export interface GetQuestionsProps extends Action {
   type: QuestionsTypes.GET_QUESTIONS;
-  payload: { id: string };
+  payload: { id: string; difficulty: string };
 }
 
 export interface GetQuestionsSuccessProps extends Action {

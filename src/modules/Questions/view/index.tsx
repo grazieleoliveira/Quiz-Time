@@ -10,7 +10,10 @@ import * as S from './styles';
 import { resetQuestionsAction } from '../store/ducks/actions';
 import { HOME } from '~/shared/constants/routeNames';
 import RadioButtonList from '~/shared/components/RadioButton/RadioButtonList';
-import { resetAnswerAction } from '~/shared/store/ducks/user/actions';
+import {
+  resetAnswerAction,
+  resetInfoAction,
+} from '~/shared/store/ducks/user/actions';
 import { groupAllAnswers, verifyAnswers } from '../utils';
 
 export interface AnswerProps {
@@ -21,6 +24,10 @@ export interface AnswerProps {
 export const QuestionPage: React.FC = () => {
   const { listQuestions, loading } = useSelector(
     (state: ApplicationState) => state.questions,
+  );
+
+  const { currentCategoryId } = useSelector(
+    (state: ApplicationState) => state.categories,
   );
 
   const { currentAnswer } = useSelector(
@@ -40,6 +47,7 @@ export const QuestionPage: React.FC = () => {
   const resetQuestions = () => {
     navigation.navigate(HOME);
     dispatch(resetQuestionsAction());
+    dispatch(resetInfoAction());
   };
 
   const nextQuestion = () => {
@@ -58,10 +66,10 @@ export const QuestionPage: React.FC = () => {
       data.currentAnswer.answer,
       question?.difficulty,
       user,
+      currentCategoryId,
     );
     actions.resetForm();
     dispatch(resetAnswerAction());
-    console.tron.log('CURR', currentAnswer);
     nextQuestion();
   };
 
@@ -88,7 +96,6 @@ export const QuestionPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listQuestions, questionCount, question, currentAnswer]);
 
-  console.tron.log('CURRENTANSWER', values.currentAnswer);
   return (
     <S.Background>
       <S.QuestionsContainer>

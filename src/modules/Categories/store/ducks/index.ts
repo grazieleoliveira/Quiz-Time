@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { CategoriesTypes, CategoriesState } from './types';
 
 const INITIAL_STATE: CategoriesState = {
+  currentCategoryId: '',
   listCategories: [],
   loading: false,
 };
@@ -27,6 +28,11 @@ const reducer: Reducer<CategoriesState> = (
         ...state,
         loading: false,
         listCategories: [],
+      };
+    case CategoriesTypes.SET_CURRENT_CATEGORY_ID:
+      return {
+        ...state,
+        currentCategoryId: payload.currentCategoryId,
       };
     default:
       return state;

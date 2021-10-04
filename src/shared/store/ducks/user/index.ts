@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { UserTypes, UserState } from './types';
 
 const INITIAL_STATE: UserState = {
+  previousAnswerResult: undefined,
   currentAnswer: {
     id: undefined,
     answer: '',
@@ -97,6 +98,11 @@ const reducer: Reducer<UserState> = (
       return {
         ...state,
         answer: payload.answer,
+      };
+    case UserTypes.PREVIOUS_RESULT:
+      return {
+        ...state,
+        previousAnswerResult: payload.previousAnswerResult,
       };
     case UserTypes.RESET_ANSWER:
       return {

@@ -8,10 +8,13 @@ import {
   incrementWrongHardStreak,
   incrementWrongMediumStreak,
   incrementWrongStreak,
+  savePreviousAnswer,
 } from '~/shared/store/ducks/user/actions';
 import { UserState } from '~/shared/store/ducks/user/types';
 import { AnswerProps } from '../view';
 import user from '~/shared/store/';
+import questions from '~/shared/store';
+import { getQuestionsAction } from '../store/ducks/actions';
 
 export const shuffle = (array: AnswerProps[]) => {
   const shuffledArray = array
@@ -51,20 +54,102 @@ export const verifyAnswers = (
   userAnswer: string | undefined,
   questionType: string | undefined,
   userInfo: UserState | undefined,
+  currentCategoryId: string | undefined,
 ) => {
   let isItRight;
   if (
     correctAnswer !== undefined &&
     userAnswer !== undefined &&
     questionType !== undefined &&
-    userInfo !== undefined
+    userInfo !== undefined &&
+    currentCategoryId !== undefined
   ) {
     if (correctAnswer === userAnswer) {
       isItRight = true;
-      user.dispatch(incrementRightStreak(userInfo.streak.rightAnswers + 1));
+      // verificandoi se a ultima resp do usuario foi certa
+
+      switch (userInfo.previousAnswerResult) {
+        case undefined:
+          user.dispatch(incrementRightStreak(userInfo.streak.rightAnswers + 1));
+          break;
+        case true:
+          user.dispatch(incrementRightStreak(userInfo.streak.rightAnswers + 1));
+          if (userInfo.streak.rightAnswers + 1 === 3) {
+            switch (questionType) {
+              case 'easy':
+                questions.dispatch(
+                  getQuestionsAction(currentCategoryId.toString(), 'medium'),
+                );
+                break;
+              case 'medium':
+                questions.dispatch(
+                  getQuestionsAction(currentCategoryId.toString(), 'hard'),
+                );
+                break;
+              case 'hard':
+                questions.dispatch(
+                  getQuestionsAction(
+                    currentCategoryId.toString(),
+                    questionType,
+                  ),
+                );
+                break;
+              default:
+                break;
+            }
+            user.dispatch(incrementRightStreak(0));
+          }
+          break;
+        case false:
+          user.dispatch(incrementRightStreak(0));
+          break;
+        default:
+          break;
+      }
+
+      user.dispatch(savePreviousAnswer(isItRight));
     } else {
       isItRight = false;
-      user.dispatch(incrementWrongStreak(userInfo.streak.wrongAnswers + 1));
+
+      switch (userInfo.previousAnswerResult) {
+        case undefined:
+          user.dispatch(incrementWrongStreak(userInfo.streak.wrongAnswers + 1));
+          break;
+        case true:
+          user.dispatch(incrementWrongStreak(0));
+          break;
+        case false:
+          user.dispatch(incrementWrongStreak(userInfo.streak.wrongAnswers + 1));
+          if (userInfo.streak.wrongAnswers + 1 === 3) {
+            switch (questionType) {
+              case 'easy':
+                questions.dispatch(
+                  getQuestionsAction(
+                    currentCategoryId.toString(),
+                    questionType,
+                  ),
+                );
+                break;
+              case 'medium':
+                questions.dispatch(
+                  getQuestionsAction(currentCategoryId.toString(), 'easy'),
+                );
+                break;
+              case 'hard':
+                questions.dispatch(
+                  getQuestionsAction(currentCategoryId.toString(), 'medium'),
+                );
+                break;
+              default:
+                break;
+            }
+            user.dispatch(incrementWrongStreak(0));
+          }
+          break;
+        default:
+          break;
+      }
+      user.dispatch(savePreviousAnswer(isItRight));
     }
 
     switch (questionType) {

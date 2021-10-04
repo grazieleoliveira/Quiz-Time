@@ -12,6 +12,7 @@ export enum UserTypes {
   SAVE_USER_ANSWER = '@user/SAVE_USER_ANSWER',
   RESET_ANSWER = '@user/RESET_ANSWER',
   RESET_INFO = '@user/RESET_INFO',
+  PREVIOUS_RESULT = '@user/PREVIOUS_RESULT',
 }
 
 interface AnswersProps {
@@ -20,6 +21,7 @@ interface AnswersProps {
 }
 
 export interface UserState {
+  previousAnswerResult: boolean | undefined;
   currentAnswer: {
     id: number | undefined;
     answer: string;
@@ -72,6 +74,11 @@ export interface IncreaseHardWrongQuestionsProps extends Action {
 
 export interface ResetInfoProps extends Action {
   type: UserTypes.RESET_INFO;
+}
+
+export interface PreviousResultProps extends Action {
+  type: UserTypes.PREVIOUS_RESULT;
+  payload: { previousAnswerResult: boolean };
 }
 
 export interface ResetAnswerProps extends Action {
