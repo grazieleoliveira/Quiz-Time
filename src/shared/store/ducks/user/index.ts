@@ -3,7 +3,7 @@ import { UserTypes, UserState } from './types';
 
 const INITIAL_STATE: UserState = {
   currentAnswer: {
-    id: 0,
+    id: undefined,
     answer: '',
   },
   streak: {

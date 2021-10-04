@@ -19,7 +19,7 @@ export interface AnswerProps {
 }
 
 export const QuestionPage: React.FC = () => {
-  const { listQuestions } = useSelector(
+  const { listQuestions, loading } = useSelector(
     (state: ApplicationState) => state.questions,
   );
 
@@ -88,19 +88,16 @@ export const QuestionPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listQuestions, questionCount, question, currentAnswer]);
 
+  console.tron.log('CURRENTANSWER', values.currentAnswer);
   return (
     <S.Background>
       <S.QuestionsContainer>
         <S.MainTitle>Questão {questionCount + 1}</S.MainTitle>
-        {question !== undefined && allAnswers !== undefined ? (
+        {!loading ? (
           <>
             <S.QuestionText>{questionTitle}</S.QuestionText>
             <RadioButtonList
-              selected={
-                values.currentAnswer.id !== undefined
-                  ? values.currentAnswer
-                  : allAnswers[0]
-              }
+              selected={values.currentAnswer}
               checkRadio={(value) => {
                 setFieldValue('currentAnswer', value);
               }}
@@ -120,8 +117,9 @@ export const QuestionPage: React.FC = () => {
           <S.ActionText>Give Up</S.ActionText>
         </S.Touchable>
         <S.Touchable
+          disabled={!dirty}
           onPress={() => handleSubmit()}
-          style={{ backgroundColor: '#00b100' }}
+          style={{ backgroundColor: dirty ? '#00b100' : '#999999' }}
           activeOpacity={0.7}>
           <S.ActionText>{questionCount === 9 ? 'Finish' : 'Next'}</S.ActionText>
         </S.Touchable>

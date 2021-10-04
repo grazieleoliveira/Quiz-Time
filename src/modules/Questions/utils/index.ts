@@ -21,7 +21,6 @@ export const shuffle = (array: AnswerProps[]) => {
   return shuffledArray;
 };
 
-// terminar a regra de negocio, por enquanto ele não muda o nível das questões, só fica no nível easy computando as questões que foram erradas e acertadas. não reseta tb.
 export const groupAllAnswers = (
   incorrectAnswers: string[] | string | undefined,
   correctAnswer: string | undefined,
@@ -46,6 +45,7 @@ export const groupAllAnswers = (
   return [];
 };
 
+// terminar a regra de negocio, por enquanto ele não muda o nível das questões, só fica no nível easy computando as questões que foram erradas e acertadas. não reseta tb.
 export const verifyAnswers = (
   correctAnswer: string | undefined,
   userAnswer: string | undefined,
