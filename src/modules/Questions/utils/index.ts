@@ -47,7 +47,6 @@ export const groupAllAnswers = (
   }
   return [];
 };
-
 // terminar a regra de negocio, por enquanto ele não muda o nível das questões, só fica no nível easy computando as questões que foram erradas e acertadas. não reseta tb.
 export const verifyAnswers = (
   correctAnswer: string | undefined,
@@ -186,4 +185,14 @@ export const verifyAnswers = (
         break;
     }
   }
+};
+
+export const verifyRight = (
+  correctAnswer: string | undefined,
+  userAnswer: string | undefined,
+) => {
+  if (correctAnswer === userAnswer) {
+    return true;
+  }
+  return false;
 };

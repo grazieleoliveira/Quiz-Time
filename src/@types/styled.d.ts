@@ -43,6 +43,7 @@ type ColorsProps = {
   BUTTON_CANCEL: string;
   SHOW_BUTTON: string;
   BUTTON_COLOR: string;
+  GRAY_SCREEN: string;
 };
 
 type SizingProps = {

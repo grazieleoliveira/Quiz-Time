@@ -48,3 +48,11 @@ export const Touchable = styled.TouchableOpacity`
   elevation: 4;
   border-radius: ${s(6)}px;
 `;
+
+export const DifficultyText = styled.Text`
+  color: ${({ theme }) => theme.Colors.BUTTON_COLOR};
+  font-size: ${sfs(20)}px;
+  font-family: 'Roboto-Medium';
+  align-self: center;
+  text-align: center;
+`;

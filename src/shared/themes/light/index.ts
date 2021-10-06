@@ -56,5 +56,6 @@ export default {
     BUTTON_CANCEL: '#FFFF00',
     SHOW_BUTTON: '#FFFF00',
     BUTTON_COLOR: '#f57b5d',
+    GRAY_SCREEN: 'rgba(96,96,96,0.8)',
   },
 };

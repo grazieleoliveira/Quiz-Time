@@ -14,7 +14,8 @@ import {
   resetAnswerAction,
   resetInfoAction,
 } from '~/shared/store/ducks/user/actions';
-import { groupAllAnswers, verifyAnswers } from '../utils';
+import { groupAllAnswers, verifyAnswers, verifyRight } from '../utils';
+import ModalQuestionResults from '../ModalQuestionResults';
 
 export interface AnswerProps {
   id: number;
@@ -40,6 +41,9 @@ export const QuestionPage: React.FC = () => {
   const [questionCount, setQuestionCount] = useState(0);
   const [allAnswers, setAllAnswers] = useState<AnswerProps[]>();
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [isItRight, setIsItRight] = useState();
+  const [questionDifficulty, setQuestionDifficulty] = useState('');
+  const [difficultyHasChanged, setDifficultyHasChanged] = useState(false);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -59,6 +63,11 @@ export const QuestionPage: React.FC = () => {
     }
   };
 
+  const closeModal = () => {
+    setModalIsVisible(false);
+    nextQuestion();
+  };
+
   const saveUserAnswer = (data: string, actions: any) => {
     // dispatch(saveUserAnswerAction(data.currentAnswer.answer));
     verifyAnswers(
@@ -69,8 +78,15 @@ export const QuestionPage: React.FC = () => {
       currentCategoryId,
     );
     actions.resetForm();
+    const verify = verifyRight(
+      question?.correct_answer,
+      data.currentAnswer.answer,
+    );
+
+    setIsItRight(verify);
+    setModalIsVisible(true);
     dispatch(resetAnswerAction());
-    nextQuestion();
+    // nextQuestion();
   };
 
   const { handleSubmit, dirty, handleChange, setFieldValue, values, errors } =
@@ -84,9 +100,13 @@ export const QuestionPage: React.FC = () => {
     });
 
   useEffect(() => {
-    if (listQuestions) {
+    setDifficultyHasChanged(true);
+  }, [questionDifficulty]);
+  useEffect(() => {
+    if (listQuestions && !modalIsVisible) {
       setQuestion(listQuestions[questionCount]);
       setQuestionTitle(decode(question?.question));
+      setQuestionDifficulty(decode(question?.difficulty));
       const newAnswersArr = groupAllAnswers(
         question?.incorrect_answers,
         question?.correct_answer,
@@ -100,9 +120,13 @@ export const QuestionPage: React.FC = () => {
     <S.Background>
       <S.QuestionsContainer>
         <S.MainTitle>Questão {questionCount + 1}</S.MainTitle>
-        {!loading ? (
+        {!loading || modalIsVisible ? (
           <>
+            <S.DifficultyText>
+              {questionDifficulty.toUpperCase()}
+            </S.DifficultyText>
             <S.QuestionText>{questionTitle}</S.QuestionText>
+
             <RadioButtonList
               selected={values.currentAnswer}
               checkRadio={(value) => {
@@ -133,12 +157,16 @@ export const QuestionPage: React.FC = () => {
       </S.ActionsContainer>
       {/* fazer o modal */}
       <Modal
+        transparent
         visible={modalIsVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalIsVisible(!modalIsVisible);
-        }}
-      />
+          setModalIsVisible(true);
+        }}>
+        <ModalQuestionResults
+          closeModal={() => closeModal()}
+          text={isItRight ? 'acertou' : 'errou'}
+        />
+      </Modal>
     </S.Background>
   );
 };
