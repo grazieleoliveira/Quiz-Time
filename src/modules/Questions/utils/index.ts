@@ -11,10 +11,10 @@ import {
   savePreviousAnswer,
 } from '~/shared/store/ducks/user/actions';
 import { UserState } from '~/shared/store/ducks/user/types';
-import { AnswerProps } from '../view';
 import user from '~/shared/store/';
 import questions from '~/shared/store';
 import { getQuestionsAction } from '../store/ducks/actions';
+import { AnswerProps } from '../view';
 
 export const shuffle = (array: AnswerProps[]) => {
   const shuffledArray = array
@@ -25,7 +25,7 @@ export const shuffle = (array: AnswerProps[]) => {
 };
 
 export const groupAllAnswers = (
-  incorrectAnswers: string[] | string | undefined,
+  incorrectAnswers: string[] | undefined,
   correctAnswer: string | undefined,
 ) => {
   if (incorrectAnswers !== undefined && correctAnswer !== undefined) {
@@ -100,7 +100,11 @@ export const verifyAnswers = (
           }
           break;
         case false:
-          user.dispatch(incrementRightStreak(0));
+          if (userInfo.streak.rightAnswers === 0) {
+            user.dispatch(
+              incrementRightStreak(userInfo.streak.rightAnswers + 1),
+            );
+          }
           break;
         default:
           break;
@@ -109,16 +113,15 @@ export const verifyAnswers = (
       user.dispatch(savePreviousAnswer(isItRight));
     } else {
       isItRight = false;
-
+      console.tron.log('WRONGSANS', userInfo.streak.wrongAnswers);
+      console.tron.log('PREVS', userInfo.previousAnswerResult);
       switch (userInfo.previousAnswerResult) {
         case undefined:
           user.dispatch(incrementWrongStreak(userInfo.streak.wrongAnswers + 1));
           break;
-        case true:
-          user.dispatch(incrementWrongStreak(0));
-          break;
         case false:
           user.dispatch(incrementWrongStreak(userInfo.streak.wrongAnswers + 1));
+          console.tron.log('WRONGSANSDOFALSE', userInfo.streak.wrongAnswers);
           if (userInfo.streak.wrongAnswers + 1 === 3) {
             switch (questionType) {
               case 'easy':
@@ -143,6 +146,13 @@ export const verifyAnswers = (
                 break;
             }
             user.dispatch(incrementWrongStreak(0));
+          }
+          break;
+        case true:
+          if (userInfo.streak.wrongAnswers === 0) {
+            user.dispatch(
+              incrementWrongStreak(userInfo.streak.wrongAnswers + 1),
+            );
           }
           break;
         default:

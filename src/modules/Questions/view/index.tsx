@@ -8,7 +8,7 @@ import { QuestionProps } from '~/dtos';
 import { ApplicationState } from '~/shared/store';
 import * as S from './styles';
 import { resetQuestionsAction } from '../store/ducks/actions';
-import { HOME } from '~/shared/constants/routeNames';
+import { HOME, RESULTS } from '~/shared/constants/routeNames';
 import RadioButtonList from '~/shared/components/RadioButton/RadioButtonList';
 import {
   resetAnswerAction,
@@ -57,7 +57,7 @@ export const QuestionPage: React.FC = () => {
   const nextQuestion = () => {
     if (questionCount === 9) {
       setQuestionCount(0);
-      navigation.navigate(HOME);
+      navigation.navigate(RESULTS);
     } else {
       setQuestionCount(questionCount + 1);
     }
