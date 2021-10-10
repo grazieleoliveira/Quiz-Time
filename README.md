@@ -30,7 +30,6 @@ In this project, I got to learn how to deal with APIs using the best practices.
   <li>Axios ➜ Managing API requests </li>
   <li>Formik/Yup ➜ Form validation </li>
   <li>Styled-Components ➜ Stylization </li>
-  <li>React Native Size Matters ➜ Responsive sizes </li>
   <li>React Navigation ➜ Screen navigation management</li>
   <li>React Native Vector Icons ➜ Application icons </li>
   <li>React Native Image Picker ➜ Photo/video selection from the device library or camera</li>
