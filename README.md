@@ -5,7 +5,6 @@
 <p align="center">
   <a href="https://imgur.com/O4PD4MX"><img src="https://i.imgur.com/O4PD4MX.png" title="source: imgur.com" /></a>
 </p>
-<h4 align="center">React Native application that helps users find their favorite books :) </h4>
 
 ## 📍 About this project
 ### 📖 Introduction
@@ -32,7 +31,6 @@ In this project, I got to learn how to deal with APIs using the best practices.
   <li>Styled-Components ➜ Stylization </li>
   <li>React Navigation ➜ Screen navigation management</li>
   <li>React Native Vector Icons ➜ Application icons </li>
-  <li>React Native Image Picker ➜ Photo/video selection from the device library or camera</li>
 </ul>
 
 ### ⚙️ Libraries to increase the productivity during development
